@@ -68,19 +68,14 @@ servers = [
     },
 ]
 
-count = 0
 for server in servers:
     print "Downloading from %s - %s ..." % (server['name'], server['location'])
     speed = subprocess.check_output("wget -O /dev/null %s 2>&1" % server['url'], shell=True)
 
     speed = speed.strip()
     speed = speed.split('\n')
-    result = "%s %s" % (speed[-1].split()[2], speed[-1].split()[3])
+    speed_split = speed[-1].split()
+    result = "%s %s" % (speed_split[2], speed_split[3])
     result = result[1:-1]
 
     print "Network speed: %s" % result
-
-    # count += 1
-    # if count >= 1:
-    #     break
-
