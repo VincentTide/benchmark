@@ -100,9 +100,9 @@ results.write("dd CPU Speed: %s\n" % dd_cpu)
 #         "url": "http://ipv4.speedtest-sgp1.digitalocean.com/100mb.test"
 #     },
 #     {
-#         "name": "Linode",
+#         "name": "VULTR",
 #         "location": "Tokyo, Japan",
-#         "url": "http://speedtest.tokyo.linode.com/100MB-tokyo.bin"
+#         "url": "http://hnd-jp-ping.vultr.com/vultr.com.100MB.bin"
 #     },
 # ]
 #
@@ -127,4 +127,12 @@ results.write("dd CPU Speed: %s\n" % dd_cpu)
 download_url = "http://byte-unixbench.googlecode.com/files/UnixBench5.1.3.tgz"
 subprocess.call("wget -q --no-check-certificate " + download_url, shell=True)
 subprocess.call("tar xvf UnixBench5.1.3.tgz", shell=True)
-subprocess.call("cd UnixBench; ./Run -c 1", shell=True)
+unixbench = subprocess.check_output("cd UnixBench; ./Run -c 1", shell=True)
+
+for item in unixbench.split("\n"):
+    if "System Benchmarks Index Score" in item:
+        unixbench_score = item.strip().split()[4]
+        print "UnixBench Score: %s\n" % unixbench_score
+        results.write("UnixBench Score: %s\n" %unixbench_score)
+
+print "\nFINISHED benchmarking script! See Results_EtherRank.txt for results.\n"
