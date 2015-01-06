@@ -67,72 +67,72 @@ results.write("dd CPU Speed: %s\n" % dd_cpu)
 ###
 # Bandwidth Performance Tests
 ###
-# print "\nRunning Bandwidth Performance Tests"
-# servers = [
-#     {
-#         "name": "Cachefly",
-#         "location": "CDN",
-#         "url": "http://cachefly.cachefly.net/100mb.test"
-#     },
-#     {
-#         "name": "DigitalOcean",
-#         "location": "New York, USA",
-#         "url": "http://ipv4.speedtest-nyc3.digitalocean.com/100mb.test"
-#     },
-#     {
-#         "name": "Softlayer",
-#         "location": "San Jose, USA",
-#         "url": "http://speedtest.sjc01.softlayer.com/downloads/test100.zip"
-#     },
-#     {
-#         "name": "Linode",
-#         "location": "London, UK",
-#         "url": "http://speedtest.london.linode.com/100MB-london.bin"
-#     },
-#     {
-#         "name": "LeaseWeb",
-#         "location": "Amsterdam, NL",
-#         "url": "http://mirror.nl.leaseweb.net/speedtest/100mb.bin"
-#     },
-#     {
-#         "name": "DigitalOcean",
-#         "location": "Singapore",
-#         "url": "http://ipv4.speedtest-sgp1.digitalocean.com/100mb.test"
-#     },
-#     {
-#         "name": "VULTR",
-#         "location": "Tokyo, Japan",
-#         "url": "http://hnd-jp-ping.vultr.com/vultr.com.100MB.bin"
-#     },
-# ]
-#
-# for server in servers:
-#     print "Downloading from %s - %s ..." % (server['name'], server['location'])
-#     speed = subprocess.check_output("wget -O /dev/null %s 2>&1" % server['url'], shell=True)
-#
-#     speed = speed.strip()
-#     speed = speed.split('\n')
-#     speed_split = speed[-1].split()
-#     result = "%s %s" % (speed_split[2], speed_split[3])
-#     result = result[1:-1]
-#
-#     print "Network speed: %s" % result
-#     results.write("%s - %s - Network speed: %s\n" % (server['name'], server['location'], result))
+print "\nRunning Bandwidth Performance Tests"
+servers = [
+    {
+        "name": "Cachefly",
+        "location": "CDN",
+        "url": "http://cachefly.cachefly.net/100mb.test"
+    },
+    {
+        "name": "DigitalOcean",
+        "location": "New York, USA",
+        "url": "http://ipv4.speedtest-nyc3.digitalocean.com/100mb.test"
+    },
+    {
+        "name": "Softlayer",
+        "location": "San Jose, USA",
+        "url": "http://speedtest.sjc01.softlayer.com/downloads/test100.zip"
+    },
+    {
+        "name": "Linode",
+        "location": "London, UK",
+        "url": "http://speedtest.london.linode.com/100MB-london.bin"
+    },
+    {
+        "name": "LeaseWeb",
+        "location": "Amsterdam, NL",
+        "url": "http://mirror.nl.leaseweb.net/speedtest/100mb.bin"
+    },
+    {
+        "name": "DigitalOcean",
+        "location": "Singapore",
+        "url": "http://ipv4.speedtest-sgp1.digitalocean.com/100mb.test"
+    },
+    {
+        "name": "VULTR",
+        "location": "Tokyo, Japan",
+        "url": "http://hnd-jp-ping.vultr.com/vultr.com.100MB.bin"
+    },
+]
+
+for server in servers:
+    print "Downloading from %s - %s ..." % (server['name'], server['location'])
+    speed = subprocess.check_output("wget -O /dev/null %s 2>&1" % server['url'], shell=True)
+
+    speed = speed.strip()
+    speed = speed.split('\n')
+    speed_split = speed[-1].split()
+    result = "%s %s" % (speed_split[2], speed_split[3])
+    result = result[1:-1]
+
+    print "Network speed: %s" % result
+    results.write("%s - %s - Network speed: %s\n" % (server['name'], server['location'], result))
 
 
 ###
 # UnixBench Performance Test
 ###
 # Change download URL to github location
-download_url = "http://byte-unixbench.googlecode.com/files/UnixBench5.1.3.tgz"
-subprocess.call("wget -q --no-check-certificate " + download_url, shell=True)
-subprocess.call("tar xvf UnixBench5.1.3.tgz", shell=True)
-unixbench = subprocess.check_output("cd UnixBench; ./Run -c 1", shell=True)
-
-for item in unixbench.split("\n"):
-    if "System Benchmarks Index Score" in item:
-        unixbench_score = item.strip().split()[4]
-        print "UnixBench Score: %s\n" % unixbench_score
-        results.write("UnixBench Score: %s\n" %unixbench_score)
-
-print "\nFINISHED benchmarking script! See Results_EtherRank.txt for results.\n"
+# download_url = "http://byte-unixbench.googlecode.com/files/UnixBench5.1.3.tgz"
+# subprocess.call("wget -q --no-check-certificate " + download_url, shell=True)
+# subprocess.call("tar xvf UnixBench5.1.3.tgz", shell=True)
+# unixbench = subprocess.check_output("cd UnixBench; ./Run -c 1", shell=True)
+#
+# for item in unixbench.split("\n"):
+#     if "System Benchmarks Index Score" in item:
+#         unixbench_score = item.strip().split()[4]
+#         print "UnixBench Score: %s\n" % unixbench_score
+#         results.write("UnixBench Score: %s\n" %unixbench_score)
+#
+# print "\nFINISHED benchmarking script! See Results_EtherRank.txt for results.\n"
