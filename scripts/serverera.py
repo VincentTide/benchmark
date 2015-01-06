@@ -43,7 +43,7 @@ results.write("RAM: %s MB\n" % ram)
 # dd Disk Performance Tests
 ###
 print "\nRunning dd Disk Performance Tests..."
-disk = subprocess.check_output("(dd bs=1M count=1 if=/dev/zero of=outfile conv=fdatasync) 2>&1 | awk -F, '{io=$NF} END { print io}'", shell=True)
+disk = subprocess.check_output("(dd bs=1M count=1k if=/dev/zero of=outfile conv=fdatasync) 2>&1 | awk -F, '{io=$NF} END { print io}'", shell=True)
 subprocess.call("rm outfile", shell=True)
 disk = disk.strip()
 print "dd Disk Speed: %s" % disk
@@ -54,7 +54,7 @@ results.write("dd Disk Speed: %s\n" % disk)
 # dd CPU Performance Test
 ###
 print "\nRunning dd CPU Performance Tests..."
-p = subprocess.Popen("dd bs=1M count=1 if=/dev/zero | md5sum",
+p = subprocess.Popen("dd bs=1M count=1k if=/dev/zero | md5sum",
                      shell=True,
                      stdout=subprocess.PIPE,
                      stderr=subprocess.PIPE)
