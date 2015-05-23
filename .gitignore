@@ -4,4 +4,5 @@
 # PyCharm
 .idea
 
-/scripts/Results_EtherRank.txt
+# Don't save the results file
+Results_EtherRank.txt
